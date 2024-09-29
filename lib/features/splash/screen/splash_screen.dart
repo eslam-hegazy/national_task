@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:national_task/core/utils/app_colors.dart';
+import 'package:national_task/core/utils/app_images.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -6,9 +8,9 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [],
+      backgroundColor: AppColors.whiteColor,
+      body: Center(
+        child: Image.asset(AppImages.logoImage),
       ),
     );
   }
