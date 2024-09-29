@@ -1,19 +1,22 @@
+// models/question_model.dart
+import 'package:get/get.dart';
+
 class Question {
   final String id;
   final String question;
-  bool isFavorite;
+  RxBool isFavorite;
 
   Question({
     required this.id,
     required this.question,
-    this.isFavorite = false,
-  });
+    bool isFavorite = false,
+  }) : isFavorite = isFavorite.obs;
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'question': question,
-      'isFavorite': isFavorite,
+      'isFavorite': isFavorite.value, // Access value for saving
     };
   }
 

@@ -1,3 +1,4 @@
+// views/question_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:national_task/core/utils/app_colors.dart';
@@ -6,6 +7,7 @@ import 'package:national_task/features/home/controllers/favourite_controller.dar
 class QuestionScreen extends StatelessWidget {
   QuestionScreen({super.key});
   final controller = Get.put(FavoriteController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,17 +23,19 @@ class QuestionScreen extends StatelessWidget {
                 child: Text(question.id),
               ),
               subtitle: Text(question.question),
-              trailing: IconButton(
-                onPressed: () {
-                  controller.toggleFavorite(question);
-                },
-                icon: Icon(
-                  Icons.favorite,
-                  color: controller.questions[index].isFavorite ==true
-                      ? AppColors.redColor
-                      : AppColors.greyColor,
-                ),
-              ),
+              trailing: Obx(() {
+                return IconButton(
+                  onPressed: () {
+                    controller.toggleFavorite(question:question,context: context);
+                  },
+                  icon: Icon(
+                    Icons.favorite,
+                    color: question.isFavorite.value
+                        ? AppColors.redColor
+                        : AppColors.greyColor,
+                  ),
+                );
+              }),
             );
           },
           separatorBuilder: (_, index) => const Divider(),
