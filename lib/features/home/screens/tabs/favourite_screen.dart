@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:national_task/core/utils/app_colors.dart';
 import 'package:national_task/features/home/controllers/favourite_controller.dart';
+import 'package:national_task/features/home/models/question_model.dart';
 
 class FavouriteScreen extends StatelessWidget {
   FavouriteScreen({super.key});
@@ -19,30 +20,34 @@ class FavouriteScreen extends StatelessWidget {
             : ListView.separated(
                 itemBuilder: (_, index) {
                   final question = controller.favoriteQuestions[index];
-                  return ListTile(
-                    leading: CircleAvatar(
-                      child: Text(question.id),
-                    ),
-                    subtitle: Text(question.question),
-                    trailing: Obx(() {
-                      return IconButton(
-                        onPressed: () {
-                          controller.toggleFavorite(question:question,context: context);
-                        },
-                        icon: Icon(
-                          Icons.favorite,
-                          color: question.isFavorite.value
-                              ? AppColors.redColor
-                              : AppColors.greyColor,
-                        ),
-                      );
-                    }),
-                  );
+                  return _customFavouriteItem(question, context);
                 },
                 separatorBuilder: (_, index) => const Divider(),
                 itemCount: controller.favoriteQuestions.length,
               ),
       ),
+    );
+  }
+
+  Widget _customFavouriteItem(Question question, BuildContext context) {
+    return ListTile(
+      leading: CircleAvatar(
+        child: Text(question.id),
+      ),
+      subtitle: Text(question.question),
+      trailing: Obx(() {
+        return IconButton(
+          onPressed: () {
+            controller.toggleFavorite(question: question, context: context);
+          },
+          icon: Icon(
+            Icons.favorite,
+            color: question.isFavorite.value
+                ? AppColors.redColor
+                : AppColors.greyColor,
+          ),
+        );
+      }),
     );
   }
 }
